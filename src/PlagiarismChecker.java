@@ -7,6 +7,9 @@
  */
 public class PlagiarismChecker {
 
+    public static int[] paths1;
+    public static int[] paths2;
+
     /**
      * This method finds the longest sequence of characters that appear in both texts in the same order,
      * although not necessarily contiguously.
@@ -14,10 +17,22 @@ public class PlagiarismChecker {
      * @param doc2 the second
      * @return The length of the longest shared substring.
      */
+
     public static int longestSharedSubstring(String doc1, String doc2) {
 
         // TODO Complete this function to return the length of the longest shared substring.
 
+        return 0;
+    }
+
+    public static int LongestMatchingPathTo(int index, int len) {
+        if(paths1[index] != 0) {
+            return paths1[index];
+        }
+
+        if(paths2[index] != 0) {
+            return paths2[index];
+        }
         return 0;
     }
 }
