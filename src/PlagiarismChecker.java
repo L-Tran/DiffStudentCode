@@ -7,8 +7,7 @@
  */
 public class PlagiarismChecker {
 
-    public static int[] paths1;
-    public static int[] paths2;
+    public static int[] paths;
 
     /**
      * This method finds the longest sequence of characters that appear in both texts in the same order,
@@ -29,22 +28,22 @@ public class PlagiarismChecker {
             longer = doc2;
             shorter = doc1;
         }
+
+        // It will never be longer than the shorter string
+        paths = new int[shorter.length()];
+
         for(int i = 0; i < longer.length(); i++) {
-            LongestMatchingPathTo();
-            LongestMatchingPathTo();
-        }
+            for (int j = 0; j < shorter.length(); j++) {
+                if(longer.charAt(i) == shorter.charAt(j)) {
+                    paths[j] += 1;
+                }
+                else {
+                    paths[j] = Math.max(paths[j], paths[j - 1]);
+                }
+            }
 
-        return 0;
+        }
+        return paths[shorter.length()];
     }
 
-    public static int LongestMatchingPathTo(int index, int len) {
-        if(paths1[index] != 0) {
-            return paths1[index];
-        }
-
-        if(paths2[index] != 0) {
-            return paths2[index];
-        }
-        return 0;
-    }
 }
