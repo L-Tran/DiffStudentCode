@@ -7,7 +7,7 @@
  */
 public class PlagiarismChecker {
 
-    public static int[] paths;
+    public static int[][] paths;
 
     /**
      * This method finds the longest sequence of characters that appear in both texts in the same order,
@@ -17,33 +17,32 @@ public class PlagiarismChecker {
      * @return The length of the longest shared substring.
      */
 
+    // Tabulation implementation
     public static int longestSharedSubstring(String doc1, String doc2) {
-        String longer;
-        String shorter;
-        if(doc1.length() > doc2.length()) {
-            longer = doc1;
-            shorter = doc2;
-        }
-        else {
-            longer = doc2;
-            shorter = doc1;
-        }
 
-        // It will never be longer than the shorter string
-        paths = new int[shorter.length()];
+        // Lengths of strings
+        int m = doc1.length();
+        int n = doc2.length();
 
-        for(int i = 0; i < longer.length(); i++) {
-            for (int j = 0; j < shorter.length(); j++) {
-                if(longer.charAt(i) == shorter.charAt(j)) {
-                    paths[j] += 1;
+        // Initialize array with padding
+        paths = new int[m + 1][n + 1];
+
+        // Iterate through tabulation array
+        for(int i = 1; i <= m; i++) {
+            for (int j = 1; j <= n; j++) {
+                // If the current letter is equal
+                if(doc1.charAt(i - 1) == doc2.charAt(j - 1)) {
+                    // Paths at location + 1 because of match
+                    paths[i][j] = paths[i - 1][j - 1] + 1;
                 }
+                // If the current letters are not the same
                 else {
-                    paths[j] = Math.max(paths[j], paths[j - 1]);
+                    // Get the max of both possible paths back from strings
+                    paths[i][j] = Math.max(paths[i - 1][j], paths[i][j - 1]);
                 }
             }
-
         }
-        return paths[shorter.length()];
+        return paths[m][n];
     }
 
 }
